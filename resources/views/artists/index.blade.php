@@ -37,20 +37,75 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Music</th>
+                                    {{-- <th>Music</th>
+                                    <th>Artist Music</th> --}}
                                     <th>Disponible</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($artists as $artist)
+                                    {{-- @php
+                                        $artist_music_category = App\Models\Music::select('category_id')
+                                            ->whereIn('name', $artist->music_id)
+                                            ->distinct('category_id')
+                                            ->get();
+
+                                        $artist_music = App\Models\Music::select('name', 'category_id')
+                                            ->whereIn('name', $artist->music_id)
+                                            ->get();
+                                    @endphp
+                                    @php
+                                        $fixed_artist_music_category = App\Models\Music::select('category_id')
+                                            ->whereIn('name', $artist->fixed_music_id)
+                                            ->distinct('category_id')
+                                            ->get();
+
+                                        $fixed_artist_music = App\Models\Music::select('name', 'category_id')
+                                            ->whereIn('name', $artist->fixed_music_id)
+                                            ->get();
+                                    @endphp --}}
                                     <tr>
                                         <td>{{ $artist->name }}</td>
-                                        <td>
-                                            @foreach ($artist->music_id as $music)
-                                                <span class="badge bg-info text-sm rounded">{{ $music }}</span>
+                                        {{-- <td>
+
+                                            @foreach ($artist_music_category as $category)
+                                                @php
+                                                    // dd($category);
+                                                    $category_name = App\Models\Category::select('name')
+                                                        ->where('id', $category->category_id)
+                                                        ->first();
+                                                @endphp
+                                                <div class="mb-4 border-2 px-2 py-1 border-black bg-slate-300">
+                                                    <div class="badge bg-warning text-sm block">{{ $category_name->name }}
+                                                    </div>
+                                                    @foreach ($artist_music->where('category_id', $category->category_id) as $musicName)
+                                                        <span
+                                                            class="badge bg-info text-sm rounded">{{ $musicName->name }}</span>
+                                                    @endforeach
+                                                </div>
                                             @endforeach
                                         </td>
+                                        <td>
+
+                                            @foreach ($fixed_artist_music_category as $fixed_category)
+                                                @php
+                                                    // dd($category);
+                                                    $fixed_category_name = App\Models\Category::select('name')
+                                                        ->where('id', $fixed_category->category_id)
+                                                        ->first();
+                                                @endphp
+                                                <div class="mb-4 border-2 px-2 py-1 border-black bg-blue-900">
+                                                    <div class="badge bg-warning text-sm block">
+                                                        {{ $fixed_category_name->name }}
+                                                    </div>
+                                                    @foreach ($fixed_artist_music->where('category_id', $fixed_category->category_id) as $fixed_musicName)
+                                                        <span
+                                                            class="badge bg-info text-sm rounded">{{ $fixed_musicName->name }}</span>
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
+                                        </td> --}}
                                         <td>
                                             @if ($artist->is_available)
                                                 <span class="badge badge-success">Disponible</span>

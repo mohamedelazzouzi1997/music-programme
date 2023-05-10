@@ -34,12 +34,16 @@ class ArtistController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request);
         $validation = $request->validate([
             'name' => 'required',
-            'music_id' => 'required',
         ]);
 
-        $store = Artist::create($validation);
+        $store = Artist::create([
+            'name' => $request->name,
+            'music_id' => [],
+            'fixed_music_id' => [],
+        ]);
         if($store)
             return to_route('artists.index')->with([
                 'success' => 'Artist a été Ajouté Avec Succée',
@@ -79,10 +83,13 @@ class ArtistController extends Controller
     {
         $validation = $request->validate([
             'name' => 'required',
-            'music_id' => 'required',
         ]);
 
-        $artist = Artist::findOrFail($id)->update($validation);
+        $artist = Artist::findOrFail($id)->update([
+            'name' => $request->name,
+            'music_id' => [],
+            'fixed_music_id' => [],
+        ]);
         if($artist)
             return to_route('artists.index')->with([
                 'success' => 'Artist a été Modifié Avec Succée',

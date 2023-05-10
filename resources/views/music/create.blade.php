@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-select/css/bootstrap-select.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/multi-select/css/multi-select.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.css') }}" />
+    <style>
+        .form-control {
+            height: auto !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -37,6 +42,15 @@
                                 </option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                        <div class="form-group form-float">
+                            <select name="artist_id[]" class="form-control show-tick ms select2" multiple
+                                data-placeholder="Select Artists " required>
+                                @foreach ($artists as $artist)
+                                    <option value="{{ $artist->id }}">{{ $artist->name }}</option>
                                 @endforeach
 
                             </select>

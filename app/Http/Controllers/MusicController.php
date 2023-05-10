@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Music;
+use App\Models\Artist;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,8 @@ class MusicController extends Controller
     {
         //
         $categories = Category::all();
-        return view('music.create',compact('categories'));
+        $artists = Artist::all();
+        return view('music.create',compact('categories','artists'));
 
     }
 
@@ -39,9 +41,15 @@ class MusicController extends Controller
             'name' => 'required',
             'time' => 'required',
             'category_id' => 'required',
+            'artist_id' => 'required'
         ]);
 
         $store = Music::create($validation);
+
+        //store manytomany relationship artistMusic table
+        $store->artists()->attach($request->artist_id);
+
+
         if($store)
             return to_route('musics.index')->with([
                 'success' => 'Music a été Ajouté Avec Succée',
@@ -68,7 +76,9 @@ class MusicController extends Controller
         //
         $categories = Category::all();
         $music = Music::findOrFail($id);
-        return view('music.edit',compact('music','categories'));
+        $artists = Artist::all();
+
+        return view('music.edit',compact('music','categories','artists'));
     }
 
     /**
@@ -80,9 +90,13 @@ class MusicController extends Controller
             'name' => 'required',
             'time' => 'required',
             'category_id' => 'required',
+            'artist_id' => 'required'
         ]);
 
-        $music = Music::findOrFail($id)->update($validation);
+        $music = Music::findOrFail($id);
+        $music->artists()->sync($request->artist_id);
+        $music->update($validation);
+
         if($music)
             return to_route('musics.index')->with([
                 'success' => 'Music a été Modifié Avec Succée',
@@ -98,7 +112,10 @@ class MusicController extends Controller
      */
     public function destroy(string $id)
     {
-        $music = Music::findOrFail($id)->delete();
+        $music = Music::findOrFail($id);
+
+        $music->artists()->detach();
+        $music->delete();
 
         if($music)
             return to_route('musics.index')->with([

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GeneratoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,5 @@ Route::middleware([
         'categories' => CategoryController::class,
     ]);
     Route::get('/edit/available/{id}', [ArtistController::class,'is_available'])->name('artists.available');
+    Route::get('/generate', [GeneratoreController::class,'index'])->name('generatore.index');
 });

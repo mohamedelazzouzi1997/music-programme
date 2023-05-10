@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-select/css/bootstrap-select.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/multi-select/css/multi-select.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.css') }}" />
+    <style>
+        .form-control {
+            height: auto !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -29,7 +34,7 @@
                             <input type="text" class="form-control" value="{{ $artist->name }}" placeholder="Artist Name"
                                 name="name" required>
                         </div>
-                        <div class="form-group form-float">
+                        {{-- <div class="form-group form-float">
 
                             <select name="music_id[]" class="form-control show-tick ms select2" multiple
                                 data-placeholder="Select Artist Music" required>
@@ -41,6 +46,15 @@
                                 @endforeach
                             </select>
                         </div>
+                        <select name="fixed_music_id[]" class="form-control show-tick ms select2" multiple
+                            data-placeholder="Select Artist Music" required>
+                            @foreach ($musics as $music)
+                                <option value="{{ $music->name }}"
+                                    {{ in_array($music->name, $artist->fixed_music_id) ? 'selected' : '' }}>
+                                    {{ $music->name }}
+                                </option>
+                            @endforeach
+                        </select> --}}
                         <button class="btn btn-raised btn-primary waves-effect bg-blue-900" type="submit">Edit
                             Artist</button>
                     </form>
