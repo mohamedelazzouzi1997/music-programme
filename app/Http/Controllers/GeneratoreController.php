@@ -18,7 +18,7 @@ class GeneratoreController extends Controller
         $Musics = Music::all();
 
         $Category_List_duration = array();
-        $Artist_List = array();
+        $Music_by_category_list = array();
 
         foreach($categories as $category){
 
@@ -32,23 +32,25 @@ class GeneratoreController extends Controller
 
                 $Musics_By_Category = Music::where('category_id',$category_id)->get();
 
+
             $all_seconds = 0;
-            foreach ($Musics_By_Category as $time) {
-                list($hour, $minute, $second) = explode(':', $time->time);
+            foreach ($Musics_By_Category as $Music) {
+                list($hour, $minute, $second) = explode(':', $Music->time);
                 // dd($hour);
                 $all_seconds += $hour * 3600;
                 $all_seconds += $minute * 60;
                 $all_seconds += $second;
-            }
-            $total_minutes = floor($all_seconds/60);
-            $seconds = $all_seconds % 60;
-            $hours = floor($total_minutes / 60);
-            $minutes = $total_minutes % 60;
-            $timestamp1 = $hours.':'. $total_minutes.':'. $second;
-            if (Carbon::parse($timestamp1)->gt(Carbon::parse('00:20:30'))) {
-                dd(true);
-            } else {
-                dd(false);
+                $total_minutes = floor($all_seconds/60);
+                $seconds = $all_seconds % 60;
+                $hours = floor($total_minutes / 60);
+                $minutes = $total_minutes % 60;
+                $timestamp1 = $hours.':'. $total_minutes.':'. $second;
+                if (Carbon::parse($timestamp1)->gt(Carbon::parse($category_duration))) {
+                    break;
+                } else {
+                    $Music_by_category_list[$Musics_By_Category->category()->name] = $Music->id;
+                    dd($Music_by_category_list);
+                }
             }
         }
 
