@@ -16,7 +16,7 @@ class GeneratoreController extends Controller
         $categories = Category::all();
         $artists = Artist::all();
         $Musics = Music::all();
-        dd($filtered);
+
         $Category_List_duration = array();
         $Artist_List = array();
 
@@ -28,13 +28,31 @@ class GeneratoreController extends Controller
             $Category_List_duration[$category->id] = $totalDuration;
         }
 
-        foreach($artists as $asrtist){
-            foreach($Category_List_duration as $key => $duration) {
-                $filtered = $Musics->where('category_id', '=', 7);
+        foreach($Category_List_duration as $category_id => $category_duration){
+
+                $Musics_By_Category = Music::where('category_id',$category_id)->get();
+
+            $all_seconds = 0;
+            foreach ($Musics_By_Category as $time) {
+                list($hour, $minute, $second) = explode(':', $time->time);
+                // dd($hour);
+                $all_seconds += $hour * 3600;
+                $all_seconds += $minute * 60;
+                $all_seconds += $second;
+            }
+            $total_minutes = floor($all_seconds/60);
+            $seconds = $all_seconds % 60;
+            $hours = floor($total_minutes / 60);
+            $minutes = $total_minutes % 60;
+            $timestamp1 = $hours.':'. $total_minutes.':'. $second;
+            if (Carbon::parse($timestamp1)->gt(Carbon::parse('00:20:30'))) {
+                dd(true);
+            } else {
+                dd(false);
             }
         }
 
-        dd($Category_List_duration);
         return view('generatore.index');
     }
+
 }

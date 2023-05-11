@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('music', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->time('time');
+            $table->string('time');
 
             $table->timestamps();
         });

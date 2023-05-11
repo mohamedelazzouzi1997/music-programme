@@ -37,8 +37,8 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    {{-- <th>Music</th>
-                                    <th>Artist Music</th> --}}
+                                    <th>Music</th>
+                                    {{-- <th>Artist Music</th> --}}
                                     <th>Disponible</th>
                                     <th>Actions</th>
                                 </tr>
@@ -65,8 +65,32 @@
                                             ->whereIn('name', $artist->fixed_music_id)
                                             ->get();
                                     @endphp --}}
+                                    @php
+                                        $music_ids = App\Models\MusicArtist::select('music_id')
+                                            ->where('artist_id', $artist->id)
+                                            ->get()
+                                            ->toArray();
+                                        $artist_music_categories = App\Models\Music::with('category')
+                                            ->whereIn('id', $music_ids)
+                                            ->get()
+                                            ->groupBy('category.name');
+                                        // dd($artist_music_categories);
+                                    @endphp
                                     <tr>
                                         <td>{{ $artist->name }}</td>
+                                        <td>
+                                            @foreach ($artist_music_categories as $Category_name => $artist_music_By_category)
+                                                <div class="mb-4 border-2 px-2 py-1 border-black bg-slate-300">
+                                                    <div class="badge bg-warning text-sm block">
+                                                        {{ $Category_name }}
+                                                    </div>
+                                                    @foreach ($artist_music_By_category as $musicName)
+                                                        <span
+                                                            class="badge bg-info text-sm rounded">{{ $musicName->name }}</span>
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
+                                        </td>
                                         {{-- <td>
 
                                             @foreach ($artist_music_category as $category)
