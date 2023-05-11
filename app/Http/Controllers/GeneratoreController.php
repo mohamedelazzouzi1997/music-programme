@@ -46,7 +46,7 @@ class GeneratoreController extends Controller
                 $hours = floor($total_minutes / 60);
                 $minutes = $total_minutes % 60;
                 $timestamp1 = $hours.':'. $total_minutes.':'. $second;
-                if (Carbon::parse($timestamp1)->gt(Carbon::parse('01:00:00'))) {
+                if (Carbon::parse($timestamp1)->gt(Carbon::parse($category_duration))) {
                     break;
                 } else {
                     $Generated_Music_Ids[] = $Music->id;
