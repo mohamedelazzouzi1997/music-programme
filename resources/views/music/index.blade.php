@@ -30,11 +30,16 @@
                                     <th>Music Name</th>
                                     <th>Music Time</th>
                                     <th>Music Category</th>
+                                    <th>Music Artists</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($musics as $music)
+                                    @php
+                                        $artist_By_Music = App\Models\Artist::whereIn('id', $music->artist_id)->get();
+                                        
+                                    @endphp
                                     <tr>
                                         <td>{{ $music->name }}</td>
                                         <td>
@@ -43,6 +48,11 @@
                                             </span>
                                         </td>
                                         <td>{{ $music->category->name }}</td>
+                                        <td>
+                                            @foreach ($artist_By_Music as $artist)
+                                                <span class="badge bg-warning text-sm text-white">{{ $artist->name }}</span>
+                                            @endforeach
+                                        </td>
                                         <td class="flex space-x-2"><a class="btn btn-primary"
                                                 href="{{ route('musics.edit', $music->id) }}">Edit</a>
 

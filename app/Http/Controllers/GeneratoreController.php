@@ -31,7 +31,8 @@ class GeneratoreController extends Controller
 
         foreach($Category_List_duration as $category_id => $category_duration){
 
-                $Musics_By_Category = Music::where('category_id',$category_id)->get();
+                $Musics_By_Category = Music::where('category_id',$category_id)->inRandomOrder()->get();
+
                 $category_name = Category::where('id',$category_id)->first()->name;
             // dd($Musics_By_Category);
             $all_seconds = 0;
@@ -47,6 +48,7 @@ class GeneratoreController extends Controller
                 $minutes = $total_minutes % 60;
                 $timestamp1 = $hours.':'. $total_minutes.':'. $second;
                 if (Carbon::parse($timestamp1)->gt(Carbon::parse($category_duration))) {
+                    $Generated_Music_Ids[] = $Music->id;
                     break;
                 } else {
                     $Generated_Music_Ids[] = $Music->id;
