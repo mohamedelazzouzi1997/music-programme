@@ -37,6 +37,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $all_seconds = 72000;
+                                @endphp
                                 @foreach ($Music_by_category_list as $key => $values)
                                     @php
                                         $musics = App\Models\Music::whereIn('id', $values)->get();
@@ -47,7 +50,19 @@
                                     </tr>
                                     @foreach ($musics as $music)
                                         <tr>
-                                            <td></td>
+                                            @php
+                                                [$hour, $minute, $second] = explode(':', $music->time);
+                                                // dd($hour);
+                                                $all_seconds += $hour * 3600;
+                                                $all_seconds += $minute * 60;
+                                                $all_seconds += $second;
+                                                $total_minutes = floor($all_seconds / 60);
+                                                $seconds = $all_seconds % 60;
+                                                $hours = floor($total_minutes / 60);
+                                                $minutes = $total_minutes % 60;
+                                                $timestamp1 = $hours . ':' . $total_minutes . ':' . $second;
+                                            @endphp
+                                            <td>{{ $timestamp1 }}</td>
                                             <td>{{ $music->name }}</td>
                                             <td></td>
                                             <td>
