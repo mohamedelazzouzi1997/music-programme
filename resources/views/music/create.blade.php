@@ -5,8 +5,8 @@
 @endsection
 
 @section('page-style')
-    <link rel="stylesheet"
-        href="{{ asset('assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" />
+    {{-- <link rel="stylesheet"
+        href="{{ asset('assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" /> --}}
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-select/css/bootstrap-select.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/multi-select/css/multi-select.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.css') }}" />
@@ -65,12 +65,12 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.js') }}"></script>
+    <script defer src="{{ asset('assets/plugins/jquery-validation/jquery.validate.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-steps/jquery.steps.js') }}"></script>
 
-    <script src="{{ asset('assets/js/pages/forms/form-validation.js') }}"></script>
-    <script src="{{ asset('assets/plugins/multi-select/js/jquery.multi-select.js') }}"></script>
-    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script defer src="{{ asset('assets/js/pages/forms/form-validation.js') }}"></script>
+    <script defer src="{{ asset('assets/plugins/multi-select/js/jquery.multi-select.js') }}"></script>
+    <script defer src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 
-    <script src="{{ asset('assets/js/pages/forms/advanced-form-elements.js') }}"></script>
+    <script defer src="{{ asset('assets/js/pages/forms/advanced-form-elements.js') }}"></script>
 @endsection

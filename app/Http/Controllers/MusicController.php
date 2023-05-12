@@ -17,7 +17,6 @@ class MusicController extends Controller
         //
         $musics = Music::all();
         return view('music.index',compact('musics'));
-
     }
 
     /**

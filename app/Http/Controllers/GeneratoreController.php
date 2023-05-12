@@ -14,7 +14,7 @@ class GeneratoreController extends Controller
     public function index(){
 
         $categories = Category::all();
-        $artists = Artist::all();
+        // $artists = Artist::all();
         $Musics = Music::all();
 
         $Category_List_duration = array();
@@ -28,7 +28,7 @@ class GeneratoreController extends Controller
             $totalDuration = $finishTime->diff($startTime)->format('%H:%I:%S');
             $Category_List_duration[$category->id] = $totalDuration;
         }
-
+        // dd($Category_List_duration);
         foreach($Category_List_duration as $category_id => $category_duration){
 
                 $Musics_By_Category = Music::where('category_id',$category_id)->inRandomOrder()->get();
@@ -49,16 +49,19 @@ class GeneratoreController extends Controller
                 $timestamp1 = $hours.':'. $total_minutes.':'. $second;
                 if (Carbon::parse($timestamp1)->gt(Carbon::parse($category_duration))) {
                     $Generated_Music_Ids[] = $Music->id;
+                    // $Generated_Music_Ids[] = $timestamp1;
                     break;
                 } else {
                     $Generated_Music_Ids[] = $Music->id;
                 }
             }
             $Music_by_category_list[$category_name] = $Generated_Music_Ids;
-        }
-        dd($Music_by_category_list);
+            $Generated_Music_Ids = array();
 
-        return view('generatore.index');
+        }
+        // dd($Music_by_category_list);
+
+        return view('generatore.index',compact('Music_by_category_list'));
     }
 
 }
