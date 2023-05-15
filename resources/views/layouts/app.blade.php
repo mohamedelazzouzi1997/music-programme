@@ -14,6 +14,7 @@
     @yield('meta')
     {{-- See https://laravel.com/docs/5.5/blade#stacks for usage --}}
     @stack('before-styles')
+
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     @if (trim($__env->yieldContent('page-style')))

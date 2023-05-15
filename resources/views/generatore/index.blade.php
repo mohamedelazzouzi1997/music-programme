@@ -7,6 +7,13 @@
 @section('page-style')
     <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('confirm/jqueryConfirm.css') }}">
+    <link rel="stylesheet" href="{{ asset('normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('skeleton.css') }}">
+    <style>
+        .text-center {
+            text-align: center !important
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -22,7 +29,10 @@
                         </li>
                     </ul> --}}
                 </div>
-                <div class="body ">
+                <div class="my-2">
+                    <a id="print" href="#" class="btn btn-primary">print this</a>
+                </div>
+                <div id="result" class="body ">
                     <div class="table-responsive">
                         {{-- <table class="table table-bordered table-striped table-hover js-basic-example dataTable"> --}}
                         <table class="table table-bordered table-hover text-center">
@@ -36,7 +46,7 @@
                                     <th>Durée</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
                                 @php
                                     $all_seconds = 72000;
                                 @endphp
@@ -44,12 +54,13 @@
                                     @php
                                         $musics = App\Models\Music::whereIn('id', $values)->get();
                                     @endphp
-                                    <tr>
-                                        <td class=" uppercase text-xl font-bold bg-gray-300" colspan="6">
-                                            {{ $key }}</td>
+                                    <tr class="text-center">
+                                        <td class="text-center uppercase text-xl font-bold bg-gray-300" colspan="6">
+                                            {{ $key }}
+                                        </td>
                                     </tr>
                                     @foreach ($musics as $music)
-                                        <tr>
+                                        <tr class="text-center">
                                             @php
                                                 [$hour, $minute, $second] = explode(':', $music->time);
                                                 // dd($hour);
@@ -62,20 +73,20 @@
                                                 $minutes = $total_minutes % 60;
                                                 $timestamp1 = $hours . ':' . $total_minutes . ':' . $second;
                                             @endphp
-                                            <td>{{ $timestamp1 }}</td>
-                                            <td>{{ $music->name }}</td>
-                                            <td></td>
-                                            <td>
+                                            <td class="text-center">{{ $timestamp1 }}</td>
+                                            <td class="text-center">{{ $music->name }}</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">
                                                 @foreach ($music->artist_id as $artist_id)
                                                     @php
                                                         $artist = App\Models\Artist::where('id', $artist_id)->first()->name;
-                                                        
+
                                                     @endphp
                                                     {{ $artist }} /
                                                 @endforeach
                                             </td>
-                                            <td></td>
-                                            <td>{{ substr($music->time, 3) }}</td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center">{{ substr($music->time, 3) }}</td>
                                         </tr>
                                     @endforeach
                                 @endforeach
@@ -98,6 +109,7 @@
     <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/tables/jquery-datatable.js') }}"></script>
     <script src="{{ asset('confirm/jqueryConfirm.js') }}"></script>
+    <script src="{{ asset('printThis.js') }}"></script>
     <script>
         $('.delete-btn').click(function(event) {
 
@@ -119,6 +131,9 @@
                     close: function() {}
                 }
             });
+        });
+        $('#print').click(function() {
+            $("#result").printThis();
         });
     </script>
 
