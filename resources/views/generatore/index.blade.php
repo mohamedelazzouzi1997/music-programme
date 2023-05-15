@@ -48,7 +48,7 @@
                             </thead>
                             <tbody class="text-center">
                                 @php
-                                    $all_seconds = 72000;
+                                    $totalTime = Carbon\Carbon::createFromTime(20, 30, 0);
                                 @endphp
                                 @foreach ($Music_by_category_list as $key => $values)
                                     @php
@@ -62,18 +62,16 @@
                                     @foreach ($musics as $music)
                                         <tr class="text-center">
                                             @php
-                                                [$hour, $minute, $second] = explode(':', $music->time);
-                                                // dd($hour);
-                                                $all_seconds += $hour * 3600;
-                                                $all_seconds += $minute * 60;
-                                                $all_seconds += $second;
-                                                $total_minutes = floor($all_seconds / 60);
-                                                $seconds = $all_seconds % 60;
-                                                $hours = floor($total_minutes / 60);
-                                                $minutes = $total_minutes % 60;
-                                                $timestamp1 = $hours . ':' . $total_minutes . ':' . $second;
+                                                $timeParts = explode(':', $music->time);
+                                                $hours = intval($timeParts[0]);
+                                                $minutes = intval($timeParts[1]);
+                                                $seconds = intval($timeParts[2]);
+
+                                                $totalTime->addHours($hours);
+                                                $totalTime->addMinutes($minutes);
+                                                $totalTime->addSeconds($seconds);
                                             @endphp
-                                            <td class="text-center">{{ $timestamp1 }}</td>
+                                            <td class="text-center">{{ $totalTime->format('H:i:s') }}</td>
                                             <td class="text-center">{{ $music->name }}</td>
                                             <td class="text-center"></td>
                                             <td class="text-center">
