@@ -17,6 +17,11 @@
             text-align: center !important
         }
 
+        th {
+            background-color: rgb(11, 36, 59) !important;
+            color: white;
+        }
+
         .draggable {
             cursor: move !important;
         }
@@ -45,14 +50,14 @@
                 <div class="my-2">
                     <a id="saveAsPdf" href="#" class="btn btn-primary">print this</a>
                 </div>
-                <div class="grid grid-cols-6">
+                <div class="grid grid-cols-6 gap-0">
                     <div id="result" class="body col-span-1">
                         <div class="table-responsive">
                             {{-- <table class="table table-bordered table-striped table-hover js-basic-example dataTable"> --}}
                             <table class="table table-bordered table-hover text-center">
                                 <thead>
                                     <tr>
-                                        <th>Time</th>
+                                        <th class="font-extrabold">Time</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center ">
@@ -99,11 +104,11 @@
                             <table class="table table-bordered table-hover text-center">
                                 <thead class="text-center">
                                     <tr>
-                                        <th>Capsules & Modules </th>
-                                        <th>Musiciens</th>
-                                        <th>Chanteurs</th>
-                                        <th>Les coeurs</th>
-                                        <th>Durée</th>
+                                        <th class="font-extrabold">Capsules & Modules </th>
+                                        <th class="font-extrabold">Musiciens</th>
+                                        <th class="font-extrabold">Chanteurs</th>
+                                        <th class="font-extrabold">Les coeurs</th>
+                                        <th class="font-extrabold">Durée</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center ">
