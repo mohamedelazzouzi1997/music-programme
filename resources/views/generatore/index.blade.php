@@ -128,18 +128,18 @@
                                     @foreach ($musics as $music)
                                         <tr class="text-center draggable" draggable="true">
                                             {{-- @php
-                                                $timeParts = explode(':', $music->time);
-                                                $hours = intval($timeParts[0]);
-                                                $minutes = intval($timeParts[1]);
-                                                $seconds = intval($timeParts[2]);
+                                                        $timeParts = explode(':', $music->time);
+                                                        $hours = intval($timeParts[0]);
+                                                        $minutes = intval($timeParts[1]);
+                                                        $seconds = intval($timeParts[2]);
 
-                                                $totalTime->addHours($hours);
-                                                $totalTime->addMinutes($minutes);
-                                                $totalTime->addSeconds($seconds);
-                                            @endphp
-                                            <td class="text-center">{{ $totalTime->format('H:i:s') }}</td> --}}
+                                                        $totalTime->addHours($hours);
+                                                        $totalTime->addMinutes($minutes);
+                                                        $totalTime->addSeconds($seconds);
+                                                    @endphp
+                                                    <td class="text-center">{{ $totalTime->format('H:i:s') }}</td> --}}
                                             <td class="text-center">{{ $music->name }}</td>
-                                            <td class="text-center"></td>
+                                            <td class="text-center">{{ $music->type }}</td>
                                             <td class="text-center" contenteditable>
                                                 @php
                                                     $artist = App\Models\Artist::whereIn('id', $music->artist_id)
@@ -158,7 +158,7 @@
                                                     @endif
                                                 @endforeach
                                             </td>
-                                            <td class="text-center"></td>
+                                            <td class="text-center">{{ $music->coeurs }}</td>
                                             <td class="text-center">{{ substr($music->time, 3) }}</td>
                                         </tr>
                                     @endforeach

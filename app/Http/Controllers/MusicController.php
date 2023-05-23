@@ -43,7 +43,14 @@ class MusicController extends Controller
             'artist_id' => 'required'
         ]);
 
-        $store = Music::create($validation);
+        $store = Music::create([
+            'name' => $request->name,
+            'time' => '00:'.$request->time,
+            'category_id' => $request->category_id,
+            'artist_id' => $request->artist_id,
+            'type' => $request->type,
+            'coeurs' => $request->coeurs,
+        ]);
 
         //store manytomany relationship artistMusic table
         $store->artists()->attach($request->artist_id);
@@ -94,7 +101,14 @@ class MusicController extends Controller
 
         $music = Music::findOrFail($id);
         $music->artists()->sync($request->artist_id);
-        $music->update($validation);
+        $music->update([
+            'name' => $request->name,
+            'time' => $request->time,
+            'category_id' => $request->category_id,
+            'artist_id' => $request->artist_id,
+            'typer' => $request->typer,
+            'coeurs' => $request->coeurs,
+        ]);
 
         if($music)
             return to_route('musics.index')->with([

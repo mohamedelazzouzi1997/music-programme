@@ -63,6 +63,14 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group form-float">
+                            <input value="{{ $music->type }}" type="text" class="form-control" placeholder="Music Type"
+                                name="type">
+                        </div>
+                        <div class="form-group form-float">
+                            <input value="{{ $music->coeurs }}" type="text" class="form-control"
+                                placeholder="Music Coeurs" name="coeurs">
+                        </div>
                         <button class="btn btn-raised btn-primary waves-effect bg-blue-900" type="submit">Edit
                             music</button>
                     </form>

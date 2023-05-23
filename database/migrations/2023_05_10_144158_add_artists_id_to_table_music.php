@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::table('music', function (Blueprint $table) {
             //
                 $table->json('artist_id');
+                $table->string('type')->nullable();
+                $table->string('coeurs')->nullable();
         });
     }
 

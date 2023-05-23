@@ -55,6 +55,12 @@
 
                             </select>
                         </div>
+                        <div class="form-group form-float">
+                            <input type="text" class="form-control" placeholder="Music Typer" name="type">
+                        </div>
+                        <div class="form-group form-float">
+                            <input type="text" class="form-control" placeholder="Music Coeurs" name="coeurs">
+                        </div>
                         <button class="btn btn-raised btn-primary waves-effect bg-blue-900" type="submit">Add
                             Music</button>
                     </form>
