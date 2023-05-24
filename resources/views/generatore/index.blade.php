@@ -13,8 +13,10 @@
         table,
         th,
         td {
-            border: 1px solid black !important;
-            text-align: center !important
+            border: 4px solid black !important;
+            text-align: center !important;
+            font-size: 18px;
+            font-weight: bolder;
         }
 
         th {
@@ -50,11 +52,11 @@
                 <div class="my-2">
                     <a id="saveAsPdf" href="#" class="btn btn-primary">print this</a>
                 </div>
-                <div class="grid grid-cols-6 gap-0">
-                    <div id="result" class="body col-span-1">
+                <div id="result" class="grid grid-cols-6 gap-0 shadow-lg">
+                    <div class="body col-span-1">
                         <div class="table-responsive">
                             {{-- <table class="table table-bordered table-striped table-hover js-basic-example dataTable"> --}}
-                            <table class="table table-bordered table-hover text-center">
+                            <table class="table table-bordered table-hover text-center font-sans">
                                 <thead>
                                     <tr>
                                         <th class="font-extrabold">Time</th>
@@ -69,10 +71,10 @@
                                             $musics = App\Models\Music::whereIn('id', $values)->get();
                                         @endphp
                                         <tr class="text-center">
-                                            <td class="text-center uppercase text-xl font-bold bg-gray-300" colspan="6">
-                                                <span class="opacity-0">
-                                                    {{ $key }}
-                                                </span>
+                                            <td style="font-size: 24px"
+                                                class="text-center uppercase text-2xl font-extrabold bg-gray-300 opacity-0"
+                                                colspan="6">
+                                                {{ $key }}
                                             </td>
                                         </tr>
                                 <tbody class="containers">
@@ -100,10 +102,10 @@
                         </div>
                     </div>
 
-                    <div id="result" class="body col-span-5">
+                    <div class="body col-span-5">
                         <div class="table-responsive">
                             {{-- <table class="table table-bordered table-striped table-hover js-basic-example dataTable"> --}}
-                            <table class="table table-bordered table-hover text-center">
+                            <table class="table table-bordered table-hover text-center font-sans">
                                 <thead class="text-center">
                                     <tr>
                                         <th class="font-extrabold">Capsules & Modules </th>
@@ -122,7 +124,9 @@
                                             $musics = App\Models\Music::whereIn('id', $values)->get();
                                         @endphp
                                         <tr class="text-center">
-                                            <td class="text-center uppercase text-xl font-bold bg-gray-300" colspan="6">
+                                            <td style="font-size: 24px"
+                                                class="text-center uppercase text-2xl font-extrabold bg-gray-300"
+                                                colspan="6">
                                                 {{ $key }}
                                             </td>
                                         </tr>
@@ -248,32 +252,14 @@
 @endsection
 
 @section('scripts')
-    {{-- <script src="{{ asset('assets/bundles/datatablescripts.bundle.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/tables/jquery-datatable.js') }}"></script> --}}
-    {{-- <script src="{{ asset('confirm/jqueryConfirm.js') }}"></script> --}}
-    {{-- <script src="{{ asset('printThis.js') }}"></script> --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
-
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script> --}}
+    <script src="{{ asset('printThis.js') }}"></script>
     <script>
-        document.getElementById('saveAsPdf').addEventListener('click', function() {
-            // Select the div element
-            const divToPrint = document.getElementById('result');
-
-            // Create a new jsPDF instance
-            const pdf = new jsPDF();
-
-            // Generate the PDF
-            pdf.addHTML(divToPrint, function() {
-                // Save the PDF file
-                pdf.save('resulta.pdf');
-            });
-        });
+        $(document).ready(function() {
+            $('#saveAsPdf').click(function() {
+                $('#result').printThis();
+            })
+        })
 
         const draggables = document.querySelectorAll('.draggable')
         const containers = document.querySelectorAll('.containers')
