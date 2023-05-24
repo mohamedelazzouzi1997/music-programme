@@ -25,29 +25,31 @@ class GeneratoreController extends Controller
 
             $startTime = Carbon::parse($category->start_time);
             $finishTime = Carbon::parse($category->end_time);
+
             $totalDuration = $finishTime->diff($startTime)->format('%H:%I:%S');
             $Category_List_duration[$category->id] = $totalDuration;
         }
-        // dd($Category_List_duration);
+
         foreach($Category_List_duration as $category_id => $category_duration){
 
                 $Musics_By_Category = Music::where('category_id',$category_id)->inRandomOrder()->get();
 
                 $category_name = Category::where('id',$category_id)->first()->name;
-            // dd($Musics_By_Category);
-            $all_seconds = 0;
+
+                $totalTime = Carbon::createFromTime(0, 0, 0);
+
             foreach ($Musics_By_Category as $Music) {
-                list($hour, $minute, $second) = explode(':', $Music->time);
-                // dd($hour);
-                $all_seconds += $hour * 3600;
-                $all_seconds += $minute * 60;
-                $all_seconds += $second;
-                $total_minutes = floor($all_seconds/60);
-                $seconds = $all_seconds % 60;
-                $hours = floor($total_minutes / 60);
-                $minutes = $total_minutes % 60;
-                $timestamp1 = $hours.':'. $total_minutes.':'. $second;
-                if (Carbon::parse($timestamp1)->gt(Carbon::parse($category_duration))) {
+
+                $timeParts = explode(':', $Music->time);
+                $hours = intval($timeParts[0]);
+                $minutes = intval($timeParts[1]);
+                $seconds = intval($timeParts[2]);
+
+                $totalTime->addHours($hours);
+                $totalTime->addMinutes($minutes);
+                $totalTime->addSeconds($seconds);
+
+                if (Carbon::parse($totalTime)->gt(Carbon::parse($category_duration))) {
                     $Generated_Music_Ids[] = $Music->id;
                     // $Generated_Music_Ids[] = $timestamp1;
                     break;

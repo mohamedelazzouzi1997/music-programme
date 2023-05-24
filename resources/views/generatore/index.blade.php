@@ -78,17 +78,19 @@
                                 <tbody class="containers">
                                     @foreach ($musics as $music)
                                         <tr class="text-center draggable" draggable="true">
+                                            <td class="text-center">{{ $totalTime->format('H:i:s') }}</td>
+
                                             @php
                                                 $timeParts = explode(':', $music->time);
                                                 $hours = intval($timeParts[0]);
                                                 $minutes = intval($timeParts[1]);
                                                 $seconds = intval($timeParts[2]);
-
+                                                
                                                 $totalTime->addHours($hours);
                                                 $totalTime->addMinutes($minutes);
                                                 $totalTime->addSeconds($seconds);
+                                                
                                             @endphp
-                                            <td class="text-center">{{ $totalTime->format('H:i:s') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -146,7 +148,7 @@
                                                         ->get()
                                                         ->pluck('name')
                                                         ->toArray();
-
+                                                    
                                                     sort($artist);
                                                     // dd($artist);
                                                 @endphp
@@ -158,7 +160,7 @@
                                                     @endif
                                                 @endforeach
                                             </td>
-                                            <td class="text-center">{{ $music->coeurs }}</td>
+                                            <td class="text-center" contenteditable>{{ $music->coeurs }}</td>
                                             <td class="text-center">{{ substr($music->time, 3) }}</td>
                                         </tr>
                                     @endforeach

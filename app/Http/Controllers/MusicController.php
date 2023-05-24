@@ -54,8 +54,6 @@ class MusicController extends Controller
 
         //store manytomany relationship artistMusic table
         $store->artists()->attach($request->artist_id);
-
-
         if($store)
             return to_route('musics.index')->with([
                 'success' => 'Music a été Ajouté Avec Succée',
