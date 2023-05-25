@@ -45,14 +45,16 @@
                     <h2 class="uppercase font-bold">Programe Music Resulta</h2>
 
                 </div>
-                <div class="my-2">
-                    <a id="btnSave" href="#" class="btn btn-primary">print this PDF</a>
-                </div>
-                <div class="my-2">
-                    <a href="#" onclick="exportToExcel()" class="btn btn-muted">export this xlsx</a>
-                </div>
-                <div class="my-2">
-                    <a href="#" onclick="fixDurationTimeCalc()" class="btn btn-muted">fix time</a>
+                <div class="py-2 px-3 flex space-x-3">
+                    <div class="my-2">
+                        <a id="btnSave" href="#" class="btn btn-primary">print this PDF</a>
+                    </div>
+                    <div class="my-2">
+                        <a href="#" onclick="exportToExcel()" class="btn btn-muted">export this xlsx</a>
+                    </div>
+                    <div class="my-2">
+                        <a href="#" onclick="fixDurationTimeCalc()" class="btn btn-muted">fix time</a>
+                    </div>
                 </div>
                 <div id="result" class=" my-4">
                     <div class=" shadow-lg">
