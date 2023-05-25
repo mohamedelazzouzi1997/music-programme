@@ -174,18 +174,15 @@
                                                 <td class="text-center">{{ $music->type }}</td>
                                                 <td class="text-center" contenteditable>
                                                     @php
-                                                        $artist = App\Models\Artist::whereIn('id', $music->artist_id)
-                                                            ->get()
-                                                            ->pluck('name')
-                                                            ->toArray();
-                                                        
-                                                        sort($artist);
+                                                        $artist = App\Models\Artist::whereIn('id', $music->artist_id)->get();
                                                     @endphp
                                                     @foreach ($artist as $name_ar)
-                                                        @if ($loop->last)
-                                                            {{ $name_ar }}
-                                                        @else
-                                                            {{ $name_ar }} /
+                                                        @if ($name_ar->is_available)
+                                                            @if (isset($artist[$loop->index + 1]['is_available']) && $artist[$loop->index + 1]['is_available'] == 1)
+                                                                {{ $name_ar->name }} /
+                                                            @else
+                                                                {{ $name_ar->name }}
+                                                            @endif
                                                         @endif
                                                     @endforeach
                                                 </td>

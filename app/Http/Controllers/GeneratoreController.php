@@ -29,7 +29,7 @@ class GeneratoreController extends Controller
             $totalDuration = $finishTime->diff($startTime)->format('%H:%I:%S');
             $Category_List_duration[$category->id] = $totalDuration;
         }
-
+        //loop through categories array
         foreach($Category_List_duration as $category_id => $category_duration){
 
                 $Musics_By_Category = Music::where('category_id',$category_id)->inRandomOrder()->get();
@@ -39,22 +39,34 @@ class GeneratoreController extends Controller
                 $totalTime = Carbon::createFromTime(0, 0, 0);
 
             foreach ($Musics_By_Category as $Music) {
+                $is_available = false;
+                //check if artist available to add music
+                foreach($Music->artist_id as $artist_id){
+                    $artis = Artist::findOrfail($artist_id);
+                    if($artis->is_available){
+                        $is_available = true;
+                        break;
+                    }
+                }
+                // if artist available we add music to list
 
-                $timeParts = explode(':', $Music->time);
-                $hours = intval($timeParts[0]);
-                $minutes = intval($timeParts[1]);
-                $seconds = intval($timeParts[2]);
+                if($is_available){
+                    $timeParts = explode(':', $Music->time);
+                    $hours = intval($timeParts[0]);
+                    $minutes = intval($timeParts[1]);
+                    $seconds = intval($timeParts[2]);
 
-                $totalTime->addHours($hours);
-                $totalTime->addMinutes($minutes);
-                $totalTime->addSeconds($seconds);
+                    $totalTime->addHours($hours);
+                    $totalTime->addMinutes($minutes);
+                    $totalTime->addSeconds($seconds);
 
-                if (Carbon::parse($totalTime)->gt(Carbon::parse($category_duration))) {
-                    $Generated_Music_Ids[] = $Music->id;
-                    // $Generated_Music_Ids[] = $timestamp1;
-                    break;
-                } else {
-                    $Generated_Music_Ids[] = $Music->id;
+
+                    if (Carbon::parse($totalTime)->gt(Carbon::parse($category_duration))) {
+                        $Generated_Music_Ids[] = $Music->id;
+                        break;
+                    } else {
+                        $Generated_Music_Ids[] = $Music->id;
+                    }
                 }
             }
             $Music_by_category_list[$category_name] = $Generated_Music_Ids;
