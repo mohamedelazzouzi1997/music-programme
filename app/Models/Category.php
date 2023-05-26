@@ -18,5 +18,6 @@ class Category extends Model
         'name',
         'start_time',
         'end_time',
+        'category_order'
     ];
 }

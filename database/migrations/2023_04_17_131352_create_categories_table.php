@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->time('start_time');
             $table->time('end_time');
+            $table->integer('category_order')->nullable();
             $table->timestamps();
         });
     }

@@ -32,6 +32,10 @@
                         <div class="form-group form-float">
                             <input type="time" class="form-control" placeholder="End Time" name="end_time" required>
                         </div>
+                        <div class="form-group form-float">
+                            <input type="time" class="form-control" placeholder="Category Order" name="category_order"
+                                required>
+                        </div>
                         <button class="btn btn-raised btn-primary waves-effect bg-blue-900" type="submit">Add
                             Category</button>
                     </form>

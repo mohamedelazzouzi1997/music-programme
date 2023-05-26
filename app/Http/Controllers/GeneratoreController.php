@@ -13,7 +13,7 @@ class GeneratoreController extends Controller
     //
     public function index(){
 
-        $categories = Category::all();
+        $categories = Category::orderBy('category_order')->get();
         // $artists = Artist::all();
         $Musics = Music::all();
 
@@ -21,6 +21,7 @@ class GeneratoreController extends Controller
         $Generated_Music_Ids = array();
         $Music_by_category_list = array();
 
+        //callc the time of each category and store it in Category_List_duration array
         foreach($categories as $category){
 
             $startTime = Carbon::parse($category->start_time);

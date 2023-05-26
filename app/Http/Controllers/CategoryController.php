@@ -35,6 +35,7 @@ class CategoryController extends Controller
             'name' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
+            'category_order' => 'required'
         ]);
         // dd($request);
         $store = Category::create($validation);
@@ -75,6 +76,7 @@ class CategoryController extends Controller
             'name' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
+            'category_order' => 'required'
         ]);
 
         $category = Category::findOrFail($id)->update($validation);

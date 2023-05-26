@@ -36,6 +36,10 @@
                             <input value="{{ $category->end_time }}" type="time" class="form-control"
                                 placeholder="End Time" name="end_time" required>
                         </div>
+                        <div class="form-group form-float">
+                            <input value="{{ $category->category_order }}" type="time" class="form-control"
+                                placeholder="Category Order" name="category_order" required>
+                        </div>
                         <button class="btn btn-raised btn-primary waves-effect bg-blue-900" type="submit">Edit
                             Category</button>
                     </form>

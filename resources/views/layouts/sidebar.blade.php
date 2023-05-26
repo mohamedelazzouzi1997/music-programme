@@ -19,7 +19,7 @@
                     href="{{ route('generatore.index') }}"><i class="zmdi zmdi-tag"></i><span>Generate</span></a>
             </li>
 
-            <li class="{{ Request::segment(1) === 'app' ? 'active open' : null }}">
+            {{-- <li class="{{ Request::segment(1) === 'app' ? 'active open' : null }}">
                 <a href="#App" class="menu-toggle"><i class="zmdi zmdi-apps"></i> <span>App</span></a>
                 <ul class="ml-menu">
                     <li class="{{ Request::segment(2) === 'inbox' ? 'active' : null }}"><a href="">Inbox</a>
@@ -31,7 +31,7 @@
                             href="">Contact
                             list</a></li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </aside>
