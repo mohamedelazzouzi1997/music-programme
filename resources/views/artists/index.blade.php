@@ -36,6 +36,7 @@
                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                             <thead>
                                 <tr>
+                                    <th>/</th>
                                     <th>Name</th>
                                     <th>Music</th>
                                     {{-- <th>Artist Music</th> --}}
@@ -77,10 +78,23 @@
                                         // dd($artist_music_categories);
                                     @endphp
                                     <tr>
+                                        <td>
+
+                                            @if ($artist->is_available)
+                                                <a class="btn btn-warning"
+                                                    href="{{ route('artists.available', $artist->id) }}"><i
+                                                        class="zmdi zmdi-block"></i></a>
+                                            @else
+                                                <a class="btn btn-success"
+                                                    href="{{ route('artists.available', $artist->id) }}"><i
+                                                        class="zmdi zmdi-check-circle"></i></a>
+                                            @endif
+
+                                        </td>
                                         <td>{{ $artist->name }}</td>
                                         <td>
                                             @foreach ($artist_music_categories as $Category_name => $artist_music_By_category)
-                                                <div class="mb-4 border-2 px-2 py-1 border-black bg-slate-300">
+                                                <div class="mb-4 border-2 px-2 py-1 border-black bg-slate-900">
                                                     <div class="badge bg-warning text-sm block">
                                                         {{ $Category_name }}
                                                     </div>
@@ -139,15 +153,7 @@
                                         </td>
                                         <td class="flex space-x-2"><a class="btn btn-primary"
                                                 href="{{ route('artists.edit', $artist->id) }}">Edit</a>
-                                            @if ($artist->is_available)
-                                                <a class="btn btn-warning"
-                                                    href="{{ route('artists.available', $artist->id) }}"><i
-                                                        class="zmdi zmdi-block"></i></a>
-                                            @else
-                                                <a class="btn btn-success"
-                                                    href="{{ route('artists.available', $artist->id) }}"><i
-                                                        class="zmdi zmdi-check-circle"></i></a>
-                                            @endif
+
                                             <form id="delete-form-{{ $artist->id }}"
                                                 action="{{ route('artists.destroy', $artist->id) }}" method="post">
                                                 @csrf

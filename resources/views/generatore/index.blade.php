@@ -10,13 +10,20 @@
     <link rel="stylesheet" href="{{ asset('normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('skeleton.css') }}">
     <style>
+        table {
+            margin: 0 auto !important;
+            width: 100% !important;
+        }
+
         table,
         th,
         td {
             border: 2px solid black !important;
             text-align: center !important;
-            font-size: 18px;
+            font-size: 14px;
             font-weight: bolder;
+            vertical-align: middle !important;
+            /* padding: 0px !important; */
         }
 
         th {
@@ -56,10 +63,10 @@
                         <a href="#" onclick="fixDurationTimeCalc()" class="btn btn-muted">fix time</a>
                     </div>
                 </div>
-                <div id="result" class=" my-4">
+                <div class=" my-4">
                     <div class=" shadow-lg">
 
-                        <div class="body col-span-5">
+                        <div id="result" class="body">
                             <div class="table-responsive">
                                 <table id="myTable" class="table table-bordered table-hover text-center font-sans">
                                     <thead class="text-center">
@@ -95,14 +102,24 @@
                                     <tbody class="text-center ">
                                         @php
                                             $i = 0;
+                                            $j = 0;
                                             $totalTime = Carbon\Carbon::createFromTime(20, 30, 0);
                                         @endphp
                                         @foreach ($Music_by_category_list as $key => $values)
                                             @php
                                                 $musics = App\Models\Music::whereIn('id', $values)->get();
                                             @endphp
+                                            @if ($j == 2)
+                                                <tr class="text-center">
+                                                    <td contenteditable style="font-size: 24px"
+                                                        class="text-center uppercase text-2xl font-extrabold bg-gray-300"
+                                                        colspan="6">
+                                                        B2 LIVE
+                                                    </td>
+                                                </tr>
+                                            @endif
                                             <tr class="text-center">
-                                                <td style="font-size: 24px"
+                                                <td contenteditable style="font-size: 24px"
                                                     class="text-center uppercase text-2xl font-extrabold bg-gray-300"
                                                     colspan="6">
                                                     {{ $key }}
@@ -121,13 +138,13 @@
                                                     $hours = intval($timeParts[0]);
                                                     $minutes = intval($timeParts[1]);
                                                     $seconds = intval($timeParts[2]);
-                                                    
+
                                                     $totalTime->addHours($hours);
                                                     $totalTime->addMinutes($minutes);
                                                     $totalTime->addSeconds($seconds);
                                                 @endphp
-                                                <td class="text-center">{{ $music->name }}</td>
-                                                <td class="text-center">{{ $music->type }}</td>
+                                                <td class="text-center" contenteditable>{!! $music->name !!}</td>
+                                                <td class="text-center" contenteditable>{{ $music->type }}</td>
                                                 <td class="text-center" contenteditable>
                                                     @php
                                                         $artist = App\Models\Artist::whereIn('id', $music->artist_id)->get();
@@ -143,13 +160,16 @@
                                                     @endforeach
                                                 </td>
                                                 <td class="text-center" contenteditable>{{ $music->coeurs }}</td>
-                                                <td id="duration" class="text-center">{{ substr($music->time, 3) }}</td>
+                                                <td id="duration" class="text-center">{{ $music->time }}</td>
                                             </tr>
                                             @php
                                                 $i++;
                                             @endphp
                                         @endforeach
                                     </tbody>
+                                    @php
+                                        $j++;
+                                    @endphp
                                     @endforeach
                                     </tbody>
                                 </table>
@@ -164,15 +184,15 @@
 
 @section('scripts')
     <script src="{{ asset('printThis.js') }}"></script>
-    <script src="{{ asset('html2canvas.js') }}"></script>
+    {{-- <script src="{{ asset('html2canvas.js') }}"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
     <script>
         $(document).ready(function() {
             $('#btnSave').click(function() {
-                $('#result').printThis({
+                $('#myTable').printThis({
                     importCSS: false,
-                    loadCSS: "",
-                    pageTitle: "Page title",
+                    // loadCSS: "",
+                    // pageTitle: "Music Programme",
                     importStyle: true, // import style tags
                     printContainer: true, // print outer container/$.selector
                 });

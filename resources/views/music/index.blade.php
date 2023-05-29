@@ -27,10 +27,12 @@
                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                             <thead>
                                 <tr>
-                                    <th>Music Name</th>
-                                    <th>Music Time</th>
-                                    <th>Music Category</th>
-                                    <th>Music Artists</th>
+                                    <th>Nom</th>
+                                    <th>Durée</th>
+                                    <th>Category</th>
+                                    <th>Artists</th>
+                                    <th>Musiciens</th>
+                                    <th>coeurs</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -44,7 +46,7 @@
                                         <td>{{ $music->name }}</td>
                                         <td>
                                             <span class="badge bg-danger text-xl text-white">
-                                                {{ $music->time }}
+                                                {{ substr($music->time, 3) }}
                                             </span>
                                         </td>
                                         <td>{{ $music->category->name }}</td>
@@ -53,6 +55,9 @@
                                                 <span class="badge bg-warning text-sm text-white">{{ $artist->name }}</span>
                                             @endforeach
                                         </td>
+                                        <td>{{ $music->coeurs }}</td>
+                                        <td>{{ $music->type }}</td>
+
                                         <td class="flex space-x-2"><a class="btn btn-primary"
                                                 href="{{ route('musics.edit', $music->id) }}">Edit</a>
 
