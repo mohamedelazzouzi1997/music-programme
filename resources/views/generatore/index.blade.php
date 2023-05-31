@@ -20,7 +20,7 @@
         td {
             border: 2px solid black !important;
             text-align: center !important;
-            font-size: 14px;
+            font-size: 10px;
             font-weight: bolder;
             vertical-align: middle !important;
             /* padding: 0px !important; */
@@ -54,13 +54,13 @@
                 </div>
                 <div class="py-2 px-3 flex space-x-3">
                     <div class="my-2">
-                        <a id="btnSave" href="#" class="btn btn-primary">print this PDF</a>
+                        <button id="btnSave" class="btn btn-primary">print this PDF</button>
                     </div>
                     <div class="my-2">
-                        <a href="#" onclick="exportToExcel()" class="btn btn-muted">export this xlsx</a>
+                        <button onclick="exportToExcel()" class="btn btn-info">export this xlsx</button>
                     </div>
                     <div class="my-2">
-                        <a href="#" onclick="fixDurationTimeCalc()" class="btn btn-muted">fix time</a>
+                        <button onclick="fixDurationTimeCalc()" class="btn btn-muted">fix time</button>
                     </div>
                 </div>
                 <div class=" my-4">
@@ -71,29 +71,21 @@
                                 <table id="myTable" class="table table-bordered table-hover text-center font-sans">
                                     <thead class="text-center">
                                         <tr>
-                                            <th contenteditable colspan="6"
-                                                style="background-color: #FF0000;text-align: center; font-weight: bolder;"
-                                                class="font-extrabold uppercase">Programme
+                                            <th contenteditable colspan="6" class=" uppercase">Programme
                                             </th>
                                         </tr>
                                         <tr>
-                                            <th style="background-color: #FF0000;text-align: center; font-weight: bolder;"
-                                                class="font-extrabold">Time
+                                            <th class="">Time
                                             </th>
-                                            <th style="background-color: #FF0000;text-align: center; font-weight: bolder;"
-                                                class="font-extrabold">
+                                            <th class="">
                                                 Capsules & Modules </th>
-                                            <th style="background-color: #FF0000;text-align: center; font-weight: bolder;"
-                                                class="font-extrabold">
+                                            <th class="">
                                                 Musiciens</th>
-                                            <th style="background-color: #FF0000;text-align: center; font-weight: bolder;"
-                                                class="font-extrabold">
+                                            <th class="">
                                                 Chanteurs</th>
-                                            <th style="background-color: #FF0000;text-align: center; font-weight: bolder;"
-                                                class="font-extrabold">Les
+                                            <th class="">Les
                                                 coeurs</th>
-                                            <th style="background-color: #FF0000;text-align: center; font-weight: bolder;"
-                                                class="font-extrabold">
+                                            <th class="">
                                                 Durée
                                             </th>
                                         </tr>
@@ -107,21 +99,22 @@
                                         @endphp
                                         @foreach ($Music_by_category_list as $key => $values)
                                             @php
-                                                $musics = App\Models\Music::whereIn('id', $values)->get();
+                                                $musics = App\Models\Music::whereIn('id', $values)
+                                                    ->inRandomOrder()
+                                                    ->get();
+                                                
                                             @endphp
                                             @if ($j == 2)
                                                 <tr class="text-center">
-                                                    <td contenteditable style="font-size: 24px"
-                                                        class="text-center uppercase text-2xl font-extrabold bg-gray-300"
-                                                        colspan="6">
+                                                    <td contenteditable style="font-size: 14px"
+                                                        class="text-center uppercase bg-gray-300" colspan="6">
                                                         B2 LIVE
                                                     </td>
                                                 </tr>
                                             @endif
                                             <tr class="text-center">
-                                                <td contenteditable style="font-size: 24px"
-                                                    class="text-center uppercase text-2xl font-extrabold bg-gray-300"
-                                                    colspan="6">
+                                                <td contenteditable style="font-size: 14px"
+                                                    class="text-center uppercase bg-gray-300" colspan="6">
                                                     {{ $key }}
                                                 </td>
                                             </tr>
@@ -138,7 +131,7 @@
                                                     $hours = intval($timeParts[0]);
                                                     $minutes = intval($timeParts[1]);
                                                     $seconds = intval($timeParts[2]);
-
+                                                    
                                                     $totalTime->addHours($hours);
                                                     $totalTime->addMinutes($minutes);
                                                     $totalTime->addSeconds($seconds);
@@ -160,7 +153,9 @@
                                                     @endforeach
                                                 </td>
                                                 <td class="text-center" contenteditable>{{ $music->coeurs }}</td>
-                                                <td id="duration" class="text-center">{{ $music->time }}</td>
+                                                <td class="text-center">{{ $music->time }}</td>
+                                                <td id="duration" class="text-center hidden">
+                                                    {{ substr($music->time, 3) }}</td>
                                             </tr>
                                             @php
                                                 $i++;
@@ -191,8 +186,8 @@
             $('#btnSave').click(function() {
                 $('#myTable').printThis({
                     importCSS: false,
-                    // loadCSS: "",
-                    // pageTitle: "Music Programme",
+                    loadCSS: "",
+                    pageTitle: "Music Programme",
                     importStyle: true, // import style tags
                     printContainer: true, // print outer container/$.selector
                 });

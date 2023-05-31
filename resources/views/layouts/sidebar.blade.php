@@ -16,22 +16,10 @@
                     href="{{ route('categories.index') }}"><i class="zmdi zmdi-tag"></i><span>CATEGORIES</span></a>
             </li>
             <li class="{{ Request::segment(1) === 'generate' ? 'active open' : null }}"><a
-                    href="{{ route('generatore.index') }}"><i class="zmdi zmdi-tag"></i><span>Generate</span></a>
+                    href="{{ route('generatore') }}"><i class="zmdi zmdi-tag"></i><span>Generate</span></a>
             </li>
 
-            {{-- <li class="{{ Request::segment(1) === 'app' ? 'active open' : null }}">
-                <a href="#App" class="menu-toggle"><i class="zmdi zmdi-apps"></i> <span>App</span></a>
-                <ul class="ml-menu">
-                    <li class="{{ Request::segment(2) === 'inbox' ? 'active' : null }}"><a href="">Inbox</a>
-                    </li>
-                    <li class="{{ Request::segment(2) === 'chat' ? 'active' : null }}"><a href="">Chat</a></li>
-                    <li class="{{ Request::segment(2) === 'calendar' ? 'active' : null }}"><a
-                            href="">Calendar</a></li>
-                    <li class="{{ Request::segment(2) === 'contact-list' ? 'active' : null }}"><a
-                            href="">Contact
-                            list</a></li>
-                </ul>
-            </li> --}}
+
         </ul>
     </div>
 </aside>

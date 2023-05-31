@@ -24,17 +24,21 @@
                 </div>
                 <div class="body ">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                        <table class="table table-bordered table-striped table-hover js-basic-example-category dataTable">
                             <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Start Time</th>
                                     <th>End Time</th>
+                                    <th>Order</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($categories as $category)
+                                    @php
+                                        // dd($categories);
+                                    @endphp
                                     <tr>
                                         <td>{{ $category->name }}</td>
                                         <td>
@@ -48,7 +52,7 @@
 
                                             </span>
                                         </td>
-                                        {{-- <td>{{ $category->end_time }}</td> --}}
+                                        <td>{{ $category->category_order }}</td>
                                         <td class="flex space-x-2"><a class="btn btn-primary"
                                                 href="{{ route('categories.edit', $category->id) }}">Edit</a>
 
@@ -74,12 +78,12 @@
 
 @section('scripts')
     <script src="{{ asset('assets/bundles/datatablescripts.bundle.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.flash.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-datatable/buttons/buttons.print.min.js') }}"></script> --}}
     <script src="{{ asset('assets/js/pages/tables/jquery-datatable.js') }}"></script>
     <script src="{{ asset('confirm/jqueryConfirm.js') }}"></script>
     <script>

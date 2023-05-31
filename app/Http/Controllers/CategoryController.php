@@ -14,6 +14,7 @@ class CategoryController extends Controller
     {
         //
         $categories = Category::orderBy('category_order')->get();
+        // dd($categories->pluck('category_order'));
         return view('categories.index',compact('categories'));
     }
 

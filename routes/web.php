@@ -35,6 +35,6 @@ Route::middleware([
         'musics' => MusicController::class,
         'categories' => CategoryController::class,
     ]);
+    Route::get('/generate/test', [GeneratoreController::class,'generatore'])->name('generatore');
     Route::get('/edit/available/{id}', [ArtistController::class,'is_available'])->name('artists.available');
-    Route::get('/generate', [GeneratoreController::class,'index'])->name('generatore.index');
 });

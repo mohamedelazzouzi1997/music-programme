@@ -11,8 +11,7 @@ use Illuminate\Http\Request;
 class GeneratoreController extends Controller
 {
     //
-    public function index(){
-
+    public function generatore(){
         $categories = Category::orderBy('category_order')->get();
         // $artists = Artist::all();
         $Musics = Music::all();
@@ -34,9 +33,8 @@ class GeneratoreController extends Controller
         foreach($Category_List_duration as $category_id => $category_duration){
 
                 $Musics_By_Category = Music::where('category_id',$category_id)->inRandomOrder()->get();
-
+                // dd($Musics_By_Category->pluck('id'));
                 $category_name = Category::where('id',$category_id)->first()->name;
-
                 $totalTime = Carbon::createFromTime(0, 0, 0);
 
             foreach ($Musics_By_Category as $Music) {
@@ -49,6 +47,7 @@ class GeneratoreController extends Controller
                         break;
                     }
                 }
+
                 // if artist available we add music to list
 
                 if($is_available){
@@ -70,11 +69,14 @@ class GeneratoreController extends Controller
                     }
                 }
             }
+
             $Music_by_category_list[$category_name] = $Generated_Music_Ids;
             $Generated_Music_Ids = array();
+        dd(true);
 
         }
-        // dd($Music_by_category_list);
+
+        dd($Music_by_category_list);
 
         return view('generatore.index',compact('Music_by_category_list'));
     }
