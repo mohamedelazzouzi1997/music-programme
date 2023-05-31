@@ -17,10 +17,12 @@ class Music extends Model
         'category_id',
         'type',
         'coeurs',
-        'artist_id'
+        'artist_id',
+        'comment',
     ];
         protected $casts = [
         'artist_id' => 'array',
+        'coeurs' => 'array',
     ];
     public function category()
     {

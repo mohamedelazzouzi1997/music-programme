@@ -50,6 +50,8 @@ class MusicController extends Controller
             'artist_id' => $request->artist_id,
             'type' => $request->type,
             'coeurs' => $request->coeurs,
+            'comment' => $request->comment,
+
         ]);
 
         //store manytomany relationship artistMusic table
@@ -104,8 +106,9 @@ class MusicController extends Controller
             'time' => $request->time,
             'category_id' => $request->category_id,
             'artist_id' => $request->artist_id,
-            'typer' => $request->typer,
+            'type' => $request->type,
             'coeurs' => $request->coeurs,
+            'comment' => $request->comment,
         ]);
 
         if($music)

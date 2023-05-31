@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Music;
 use App\Models\Artist;
+use App\Models\MusicArtist;
 use Illuminate\Http\Request;
 
 class ArtistController extends Controller
@@ -106,6 +107,16 @@ class ArtistController extends Controller
     public function destroy(string $id)
     {
         //
+        $artist_musics = MusicArtist::where('artist_id',$id)->get('music_id');
+
+        $music_of_artist = Music::whereIn('id',$artist_musics->pluck('music_id'))->get();
+
+        foreach($music_of_artist as $value){
+
+            $value->artist_id = array_diff($value->artist_id, [$id]);;
+            $value->save();
+
+        }
         $artist = Artist::findOrFail($id)->delete();
 
         if($artist)
@@ -135,4 +146,9 @@ class ArtistController extends Controller
             ]);
 
     }
+          //  foreach($value->artist_id as $j){
+        //         if($j != $id){
+        //             $new_array_music[] = $j;
+        //         }
+        //     }
 }

@@ -13,7 +13,7 @@ class Artist extends Model
         'name',
         'is_available',
         'music_id',
-        'fixed_music_id'
+        'fixed_music_id',
     ];
         protected $casts = [
         'music_id' => 'array',

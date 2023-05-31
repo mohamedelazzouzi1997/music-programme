@@ -26,7 +26,8 @@
                     <h2><strong>Edit Music</strong></h2>
                 </div>
                 <div class="body shadow-md">
-                    <form action="{{ route('musics.update', $music->id) }}" id="form_validation" method="POST">
+                    <form autocomplete="off" action="{{ route('musics.update', $music->id) }}" id="form_validation"
+                        method="POST">
                         @method('put')
                         @csrf
                         <div class="form-group form-float">
@@ -64,12 +65,23 @@
                             </select>
                         </div>
                         <div class="form-group form-float">
+                            <select name="coeurs[]" class="form-control show-tick ms select2" multiple
+                                data-placeholder="Select coeurs Music" required>
+                                @foreach ($artists as $artist_coeur)
+                                    <option value="{{ $artist_coeur->id }}"
+                                        {{ in_array($artist_coeur->id, $music->coeurs) ? 'selected' : '' }}>
+                                        {{ $artist_coeur->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group form-float">
                             <input value="{{ $music->type }}" type="text" class="form-control" placeholder="Music Type"
                                 name="type">
                         </div>
                         <div class="form-group form-float">
-                            <input value="{{ $music->coeurs }}" type="text" class="form-control"
-                                placeholder="Music Coeurs" name="coeurs">
+                            <input value="{{ $music->comment }}" type="text" class="form-control"
+                                placeholder="Music comment" name="comment">
                         </div>
                         <button class="btn btn-raised btn-primary waves-effect bg-blue-900" type="submit">Edit
                             music</button>
@@ -89,4 +101,35 @@
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/pages/forms/advanced-form-elements.js') }}"></script>
+    <script>
+        const ToasterOptions = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+    </script>
+    @if (Session::has('success'))
+        <script>
+            toastr.success("{{ Session::get('success') }}");
+            toastr.options = ToasterOptions;
+        </script>
+    @endif
+    @if (Session::has('fail'))
+        <script>
+            toastr.error("{{ Session::get('fail') }}");
+            toastr.options = ToasterOptions;
+        </script>
+    @endif
 @endsection

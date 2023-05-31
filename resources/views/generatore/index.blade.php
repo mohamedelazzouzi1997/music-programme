@@ -71,7 +71,7 @@
                                 <table id="myTable" class="table table-bordered table-hover text-center font-sans">
                                     <thead class="text-center">
                                         <tr>
-                                            <th contenteditable colspan="6" class=" uppercase">Programme
+                                            <th contenteditable colspan="7" class=" uppercase">Programme
                                             </th>
                                         </tr>
                                         <tr>
@@ -85,6 +85,9 @@
                                                 Chanteurs</th>
                                             <th class="">Les
                                                 coeurs</th>
+                                            <th class="">
+                                                commenter
+                                            </th>
                                             <th class="">
                                                 Durée
                                             </th>
@@ -107,14 +110,14 @@
                                             @if ($j == 2)
                                                 <tr class="text-center">
                                                     <td contenteditable style="font-size: 14px"
-                                                        class="text-center uppercase bg-gray-300" colspan="6">
+                                                        class="text-center uppercase bg-gray-300" colspan="7">
                                                         B2 LIVE
                                                     </td>
                                                 </tr>
                                             @endif
                                             <tr class="text-center">
                                                 <td contenteditable style="font-size: 14px"
-                                                    class="text-center uppercase bg-gray-300" colspan="6">
+                                                    class="text-center uppercase bg-gray-300" colspan="7">
                                                     {{ $key }}
                                                 </td>
                                             </tr>
@@ -152,10 +155,27 @@
                                                         @endif
                                                     @endforeach
                                                 </td>
-                                                <td class="text-center" contenteditable>{{ $music->coeurs }}</td>
-                                                <td class="text-center">{{ $music->time }}</td>
-                                                <td id="duration" class="text-center hidden">
-                                                    {{ substr($music->time, 3) }}</td>
+                                                <td class="text-center" contenteditable>
+                                                    @php
+                                                        $coeur = [];
+                                                        if ($music->coeurs != null) {
+                                                            $coeur = App\Models\Artist::whereIn('id', $music->coeurs)->get();
+                                                        }
+                                                    @endphp
+
+                                                    @foreach ($coeur as $name_cr)
+                                                        @if ($name_cr->is_available)
+                                                            @if (isset($coeur[$loop->index + 1]['is_available']) && $coeur[$loop->index + 1]['is_available'] == 1)
+                                                                {{ $name_cr->name }} /
+                                                            @else
+                                                                {{ $name_cr->name }}
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+
+                                                </td>
+                                                <td class="text-center" contenteditable>{{ $music->comment }}</td>
+                                                <td id="duration" class="text-center">{{ $music->time }}</td>
                                             </tr>
                                             @php
                                                 $i++;
@@ -332,7 +352,7 @@
             const times = ['00:00:00'];
 
             duration.forEach(element => {
-                times.push('00:' + element.innerHTML)
+                times.push(element.innerHTML)
             });
 
 

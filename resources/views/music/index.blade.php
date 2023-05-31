@@ -24,26 +24,32 @@
                 </div>
                 <div class="body ">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                        <table style="vertical-align: middle"
+                            class="table table-bordered table-striped table-hover js-basic-example dataTable">
                             <thead>
                                 <tr>
                                     <th>Nom</th>
                                     <th>Durée</th>
                                     <th>Category</th>
                                     <th>Artists</th>
-                                    <th>Musiciens</th>
                                     <th>coeurs</th>
+                                    <th>Musiciens</th>
+                                    <th>Comment</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($musics as $music)
                                     @php
+                                        
                                         $artist_By_Music = App\Models\Artist::whereIn('id', $music->artist_id)->get();
+                                        if ($music->coeurs != null) {
+                                            $coeur_By_Music = App\Models\Artist::whereIn('id', $music->coeurs)->get();
+                                        }
                                         
                                     @endphp
                                     <tr>
-                                        <td>{{ $music->name }}</td>
+                                        <td>{!! $music->name !!}</td>
                                         <td>
                                             <span class="badge bg-danger text-xl text-white">
                                                 {{ substr($music->time, 3) }}
@@ -55,8 +61,16 @@
                                                 <span class="badge bg-warning text-sm text-white">{{ $artist->name }}</span>
                                             @endforeach
                                         </td>
-                                        <td>{{ $music->coeurs }}</td>
+                                        <td>
+                                            @if (isset($coeur_By_Music))
+                                                @foreach ($coeur_By_Music as $coeur)
+                                                    <span
+                                                        class="badge bg-warning text-sm text-white">{{ $coeur->name }}</span>
+                                                @endforeach
+                                            @endif
+                                        </td>
                                         <td>{{ $music->type }}</td>
+                                        <td>{{ $music->comment }}</td>
 
                                         <td class="flex space-x-2"><a class="btn btn-primary"
                                                 href="{{ route('musics.edit', $music->id) }}">Edit</a>

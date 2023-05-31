@@ -28,12 +28,21 @@
                 <div class="body shadow-md">
                     <form autocomplete="off" action="{{ route('musics.store') }}" id="form_validation" method="POST">
                         @csrf
+                        @error('name')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
                         <div class="form-group form-float">
                             <input type="text" class="form-control" placeholder="Music Name" name="name" required>
                         </div>
+                        @error('time')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
                         <div class="form-group form-float">
                             <input type="text" class="form-control" placeholder="Music Time" name="time" required>
                         </div>
+                        @error('category_id')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
                         <div class="form-group form-float">
                             <select name="category_id" class="form-control " data-placeholder="Select Music Category"
                                 required>
@@ -46,6 +55,9 @@
 
                             </select>
                         </div>
+                        @error('artist_id')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
                         <div class="form-group form-float">
                             <select name="artist_id[]" class="form-control show-tick ms select2" multiple
                                 data-placeholder="Select Artists " required>
@@ -56,10 +68,19 @@
                             </select>
                         </div>
                         <div class="form-group form-float">
-                            <input type="text" class="form-control" placeholder="Music Typer" name="type">
+                            <select name="coeurs[]" class="form-control show-tick ms select2" multiple
+                                data-placeholder="Select Coeurs " required>
+                                @foreach ($artists as $artist)
+                                    <option value="{{ $artist->id }}">{{ $artist->name }}</option>
+                                @endforeach
+
+                            </select>
                         </div>
                         <div class="form-group form-float">
-                            <input type="text" class="form-control" placeholder="Music Coeurs" name="coeurs">
+                            <input type="text" class="form-control" placeholder="Music Type" name="type">
+                        </div>
+                        <div class="form-group form-float">
+                            <input type="text" class="form-control" placeholder="Music comment" name="comment">
                         </div>
                         <button class="btn btn-raised btn-primary waves-effect bg-blue-900" type="submit">Add
                             Music</button>
@@ -79,4 +100,35 @@
     <script defer src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 
     <script defer src="{{ asset('assets/js/pages/forms/advanced-form-elements.js') }}"></script>
+    <script>
+        const ToasterOptions = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+    </script>
+    @if (Session::has('success'))
+        <script>
+            toastr.success("{{ Session::get('success') }}");
+            toastr.options = ToasterOptions;
+        </script>
+    @endif
+    @if (Session::has('fail'))
+        <script>
+            toastr.error("{{ Session::get('fail') }}");
+            toastr.options = ToasterOptions;
+        </script>
+    @endif
 @endsection

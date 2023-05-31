@@ -15,7 +15,7 @@ return new class extends Migration
             //
                 $table->json('artist_id');
                 $table->string('type')->nullable();
-                $table->string('coeurs')->nullable();
+                $table->json('coeurs')->nullable();
         });
     }
 
