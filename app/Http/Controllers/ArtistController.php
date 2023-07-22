@@ -113,7 +113,7 @@ class ArtistController extends Controller
 
         foreach($music_of_artist as $value){
 
-            $value->artist_id = array_diff($value->artist_id, [$id]);;
+            $value->artist_id = array_diff($value->artist_id, [$id]);
             $value->save();
 
         }
